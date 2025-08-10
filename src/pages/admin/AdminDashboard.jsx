@@ -25,33 +25,32 @@ import {
   User,
 } from "lucide-react";
 
-
 const AppointmentChartWeekly = () => {
   const data = [
-    { day: 'Mon', scheduled: 45, completed: 42 },
-    { day: 'Tue', scheduled: 52, completed: 48 },
-    { day: 'Wed', scheduled: 38, completed: 35 },
-    { day: 'Thu', scheduled: 61, completed: 58 },
-    { day: 'Fri', scheduled: 55, completed: 51 },
-    { day: 'Sat', scheduled: 28, completed: 25 },
-    { day: 'Sun', scheduled: 15, completed: 14 },
+    { day: "Mon", scheduled: 45, completed: 42 },
+    { day: "Tue", scheduled: 52, completed: 48 },
+    { day: "Wed", scheduled: 38, completed: 35 },
+    { day: "Thu", scheduled: 61, completed: 58 },
+    { day: "Fri", scheduled: 55, completed: 51 },
+    { day: "Sat", scheduled: 28, completed: 25 },
+    { day: "Sun", scheduled: 15, completed: 14 },
   ];
 
-  const maxValue = Math.max(...data.flatMap(d => [d.scheduled, d.completed]));
+  const maxValue = Math.max(...data.flatMap((d) => [d.scheduled, d.completed]));
 
   return (
     <div className="flex items-end justify-between h-full space-x-2">
       {data.map((item, index) => (
         <div key={index} className="flex flex-col items-center flex-1 h-full">
           <div className="flex-1 flex flex-col justify-end w-full space-y-1">
-            <div 
-              className="bg-blue-500 rounded-t-sm min-h-[4px]" 
-              style={{height: `${(item.scheduled / maxValue) * 80}%`}}
+            <div
+              className="bg-blue-500 rounded-t-sm min-h-[4px]"
+              style={{ height: `${(item.scheduled / maxValue) * 80}%` }}
               title={`Scheduled: ${item.scheduled}`}
             ></div>
-            <div 
-              className="bg-emerald-500 rounded-t-sm min-h-[4px]" 
-              style={{height: `${(item.completed / maxValue) * 80}%`}}
+            <div
+              className="bg-emerald-500 rounded-t-sm min-h-[4px]"
+              style={{ height: `${(item.completed / maxValue) * 80}%` }}
               title={`Completed: ${item.completed}`}
             ></div>
           </div>
@@ -76,18 +75,26 @@ const UserRow = ({ name, email, role, status, lastLogin, avatar }) => (
       </div>
     </td>
     <td className="px-6 py-4 whitespace-nowrap">
-      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-        role === 'Administrator' ? 'bg-red-100 text-red-800' :
-        role === 'Doctor' ? 'bg-blue-100 text-blue-800' :
-        'bg-emerald-100 text-emerald-800'
-      }`}>
+      <span
+        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+          role === "Administrator"
+            ? "bg-red-100 text-red-800"
+            : role === "Doctor"
+            ? "bg-blue-100 text-blue-800"
+            : "bg-emerald-100 text-emerald-800"
+        }`}
+      >
         {role}
       </span>
     </td>
     <td className="px-6 py-4 whitespace-nowrap">
-      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-        status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-800'
-      }`}>
+      <span
+        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+          status === "Active"
+            ? "bg-emerald-100 text-emerald-800"
+            : "bg-gray-100 text-gray-800"
+        }`}
+      >
         {status}
       </span>
     </td>
@@ -106,7 +113,9 @@ const UserRow = ({ name, email, role, status, lastLogin, avatar }) => (
 const RoleCard = ({ title, description, permissions, color }) => (
   <div className="bg-white border border-gray-200 rounded-lg p-4">
     <div className="flex items-center mb-2">
-      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${color}`}>
+      <span
+        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${color}`}
+      >
         {title}
       </span>
     </div>
@@ -141,21 +150,63 @@ const NotificationToggle = ({ title, description, defaultChecked }) => (
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("Dashboard");
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const [appointments, setAppointments] = useState([
-    { id: 1, patientName: "John Doe", date: "2025-08-12", time: "10:00 AM", healthConcern: "Fever & Cough", status: "Pending", priority: "Medium" },
-    { id: 2, patientName: "Jane Smith", date: "2025-08-13", time: "2:30 PM", healthConcern: "Back Pain", status: "Pending", priority: "High" },
-    { id: 3, patientName: "Michael Johnson", date: "2025-08-14", time: "11:15 AM", healthConcern: "High Blood Pressure", status: "Pending", priority: "Low" },
-    { id: 4, patientName: "Sarah Wilson", date: "2025-08-15", time: "9:00 AM", healthConcern: "Routine Checkup", status: "Approved", priority: "Low" },
-    { id: 5, patientName: "Robert Brown", date: "2025-08-16", time: "3:45 PM", healthConcern: "Chest Pain", status: "Approved", priority: "High" },
+    {
+      id: 1,
+      patientName: "John Doe",
+      date: "2025-08-12",
+      time: "10:00 AM",
+      healthConcern: "Fever & Cough",
+      status: "Pending",
+      priority: "Medium",
+    },
+    {
+      id: 2,
+      patientName: "Jane Smith",
+      date: "2025-08-13",
+      time: "2:30 PM",
+      healthConcern: "Back Pain",
+      status: "Pending",
+      priority: "High",
+    },
+    {
+      id: 3,
+      patientName: "Michael Johnson",
+      date: "2025-08-14",
+      time: "11:15 AM",
+      healthConcern: "High Blood Pressure",
+      status: "Pending",
+      priority: "Low",
+    },
+    {
+      id: 4,
+      patientName: "Sarah Wilson",
+      date: "2025-08-15",
+      time: "9:00 AM",
+      healthConcern: "Routine Checkup",
+      status: "Approved",
+      priority: "Low",
+    },
+    {
+      id: 5,
+      patientName: "Robert Brown",
+      date: "2025-08-16",
+      time: "3:45 PM",
+      healthConcern: "Chest Pain",
+      status: "Approved",
+      priority: "High",
+    },
   ]);
 
   const [patients, setPatients] = useState([
-    { 
-      id: 1, 
-      name: "John Doe", 
-      age: 32, 
-      gender: "Male", 
-      phone: "+1 (555) 123-4567", 
+    {
+      id: 1,
+      name: "John Doe",
+      age: 32,
+      gender: "Male",
+      phone: "+1 (555) 123-4567",
       email: "john.doe@email.com",
       address: "123 Main St, New York, NY 10001",
       bloodType: "O+",
@@ -163,14 +214,14 @@ const AdminDashboard = () => {
       lastVisit: "2025-07-15",
       status: "Active",
       totalAppointments: 8,
-      emergencyContact: "Jane Doe - +1 (555) 987-6543"
+      emergencyContact: "Jane Doe - +1 (555) 987-6543",
     },
-    { 
-      id: 2, 
-      name: "Jane Smith", 
-      age: 28, 
-      gender: "Female", 
-      phone: "+1 (555) 234-5678", 
+    {
+      id: 2,
+      name: "Jane Smith",
+      age: 28,
+      gender: "Female",
+      phone: "+1 (555) 234-5678",
       email: "jane.smith@email.com",
       address: "456 Oak Ave, Los Angeles, CA 90210",
       bloodType: "A+",
@@ -178,14 +229,14 @@ const AdminDashboard = () => {
       lastVisit: "2025-08-01",
       status: "Active",
       totalAppointments: 5,
-      emergencyContact: "Mark Smith - +1 (555) 876-5432"
+      emergencyContact: "Mark Smith - +1 (555) 876-5432",
     },
-    { 
-      id: 3, 
-      name: "Michael Johnson", 
-      age: 45, 
-      gender: "Male", 
-      phone: "+1 (555) 345-6789", 
+    {
+      id: 3,
+      name: "Michael Johnson",
+      age: 45,
+      gender: "Male",
+      phone: "+1 (555) 345-6789",
       email: "michael.j@email.com",
       address: "789 Pine St, Chicago, IL 60601",
       bloodType: "B+",
@@ -193,14 +244,14 @@ const AdminDashboard = () => {
       lastVisit: "2025-06-20",
       status: "Active",
       totalAppointments: 12,
-      emergencyContact: "Lisa Johnson - +1 (555) 765-4321"
+      emergencyContact: "Lisa Johnson - +1 (555) 765-4321",
     },
-    { 
-      id: 4, 
-      name: "Sarah Wilson", 
-      age: 35, 
-      gender: "Female", 
-      phone: "+1 (555) 456-7890", 
+    {
+      id: 4,
+      name: "Sarah Wilson",
+      age: 35,
+      gender: "Female",
+      phone: "+1 (555) 456-7890",
       email: "sarah.wilson@email.com",
       address: "321 Elm St, Houston, TX 77001",
       bloodType: "AB+",
@@ -208,14 +259,14 @@ const AdminDashboard = () => {
       lastVisit: "2025-08-05",
       status: "Active",
       totalAppointments: 6,
-      emergencyContact: "David Wilson - +1 (555) 654-3210"
+      emergencyContact: "David Wilson - +1 (555) 654-3210",
     },
-    { 
-      id: 5, 
-      name: "Robert Brown", 
-      age: 52, 
-      gender: "Male", 
-      phone: "+1 (555) 567-8901", 
+    {
+      id: 5,
+      name: "Robert Brown",
+      age: 52,
+      gender: "Male",
+      phone: "+1 (555) 567-8901",
       email: "robert.brown@email.com",
       address: "654 Maple Dr, Phoenix, AZ 85001",
       bloodType: "O-",
@@ -223,14 +274,14 @@ const AdminDashboard = () => {
       lastVisit: "2025-07-30",
       status: "Inactive",
       totalAppointments: 15,
-      emergencyContact: "Mary Brown - +1 (555) 543-2109"
+      emergencyContact: "Mary Brown - +1 (555) 543-2109",
     },
-    { 
-      id: 6, 
-      name: "Emily Davis", 
-      age: 29, 
-      gender: "Female", 
-      phone: "+1 (555) 678-9012", 
+    {
+      id: 6,
+      name: "Emily Davis",
+      age: 29,
+      gender: "Female",
+      phone: "+1 (555) 678-9012",
       email: "emily.davis@email.com",
       address: "987 Cedar Ln, Seattle, WA 98101",
       bloodType: "A-",
@@ -238,8 +289,8 @@ const AdminDashboard = () => {
       lastVisit: "2025-08-08",
       status: "Active",
       totalAppointments: 3,
-      emergencyContact: "Tom Davis - +1 (555) 432-1098"
-    }
+      emergencyContact: "Tom Davis - +1 (555) 432-1098",
+    },
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -259,54 +310,79 @@ const AdminDashboard = () => {
   };
 
   const filteredAppointments = useMemo(() => {
-    return appointments.filter(appt => {
-      const matchesSearch = appt.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           appt.healthConcern.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesStatus = statusFilter === "All" || appt.status === statusFilter;
+    return appointments.filter((appt) => {
+      const matchesSearch =
+        appt.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        appt.healthConcern.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesStatus =
+        statusFilter === "All" || appt.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
   }, [appointments, searchTerm, statusFilter]);
 
   const filteredPatients = useMemo(() => {
-    return patients.filter(patient => {
-      const matchesSearch = patient.name.toLowerCase().includes(patientSearchTerm.toLowerCase()) ||
-                           patient.email.toLowerCase().includes(patientSearchTerm.toLowerCase()) ||
-                           patient.phone.includes(patientSearchTerm);
-      const matchesStatus = patientStatusFilter === "All" || patient.status === patientStatusFilter;
+    return patients.filter((patient) => {
+      const matchesSearch =
+        patient.name.toLowerCase().includes(patientSearchTerm.toLowerCase()) ||
+        patient.email.toLowerCase().includes(patientSearchTerm.toLowerCase()) ||
+        patient.phone.includes(patientSearchTerm);
+      const matchesStatus =
+        patientStatusFilter === "All" || patient.status === patientStatusFilter;
       return matchesSearch && matchesStatus;
     });
   }, [patients, patientSearchTerm, patientStatusFilter]);
 
   // Dynamic counts
   const totalAppointments = appointments.length;
-  const pendingCount = appointments.filter((a) => a.status === "Pending").length;
-  const approvedCount = appointments.filter((a) => a.status === "Approved").length;
-  const declinedCount = appointments.filter((a) => a.status === "Declined").length;
-  const rescheduledCount = appointments.filter((a) => a.status === "Rescheduled").length;
+  const pendingCount = appointments.filter(
+    (a) => a.status === "Pending"
+  ).length;
+  const approvedCount = appointments.filter(
+    (a) => a.status === "Approved"
+  ).length;
+  const declinedCount = appointments.filter(
+    (a) => a.status === "Declined"
+  ).length;
+  const rescheduledCount = appointments.filter(
+    (a) => a.status === "Rescheduled"
+  ).length;
 
   // Patient stats
   const totalPatients = patients.length;
   const activePatients = patients.filter((p) => p.status === "Active").length;
-  const inactivePatients = patients.filter((p) => p.status === "Inactive").length;
+  const inactivePatients = patients.filter(
+    (p) => p.status === "Inactive"
+  ).length;
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "Pending": return "bg-amber-100 text-amber-800 border-amber-200";
-      case "Approved": return "bg-emerald-100 text-emerald-800 border-emerald-200";
-      case "Declined": return "bg-red-100 text-red-800 border-red-200";
-      case "Rescheduled": return "bg-blue-100 text-blue-800 border-blue-200";
-      case "Active": return "bg-emerald-100 text-emerald-800 border-emerald-200";
-      case "Inactive": return "bg-gray-100 text-gray-800 border-gray-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
+      case "Pending":
+        return "bg-amber-100 text-amber-800 border-amber-200";
+      case "Approved":
+        return "bg-emerald-100 text-emerald-800 border-emerald-200";
+      case "Declined":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "Rescheduled":
+        return "bg-blue-100 text-blue-800 border-blue-200";
+      case "Active":
+        return "bg-emerald-100 text-emerald-800 border-emerald-200";
+      case "Inactive":
+        return "bg-gray-100 text-gray-800 border-gray-200";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case "High": return "bg-red-500";
-      case "Medium": return "bg-yellow-500";
-      case "Low": return "bg-green-500";
-      default: return "bg-gray-500";
+      case "High":
+        return "bg-red-500";
+      case "Medium":
+        return "bg-yellow-500";
+      case "Low":
+        return "bg-green-500";
+      default:
+        return "bg-gray-500";
     }
   };
 
@@ -323,21 +399,53 @@ const AdminDashboard = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-xl border-r border-gray-200 hidden md:flex flex-col">
+      <aside
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl border-r border-gray-200 transform
+    ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
+    transition-transform duration-300 ease-in-out
+    md:translate-x-0 md:static md:flex md:flex-col`}
+      >
         <div className="px-6 py-6 border-b border-gray-200">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
               <LayoutDashboard size={18} className="text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">HealthCare Admin</h1>
+            <h1 className="text-xl font-bold text-gray-900">
+              HealthCare Admin
+            </h1>
           </div>
         </div>
         <nav className="flex-1 px-4 py-6 space-y-1">
-          <SidebarLink icon={<LayoutDashboard size={20} />} label="Dashboard" active={activeSection === "Dashboard"} onClick={() => setActiveSection("Dashboard")} />
-          <SidebarLink icon={<CalendarCheck size={20} />} label="Appointments" active={activeSection === "Appointments"} onClick={() => setActiveSection("Appointments")} />
-          <SidebarLink icon={<Users size={20} />} label="Patients" active={activeSection === "Patients"} onClick={() => setActiveSection("Patients")} />
-          <SidebarLink icon={<FileText size={20} />} label="Reports" active={activeSection === "Reports"} onClick={() => setActiveSection("Reports")} />
-          <SidebarLink icon={<Settings size={20} />} label="Settings" active={activeSection === "Settings"} onClick={() => setActiveSection("Settings")} />
+          <SidebarLink
+            icon={<LayoutDashboard size={20} />}
+            label="Dashboard"
+            active={activeSection === "Dashboard"}
+            onClick={() => setActiveSection("Dashboard")}
+          />
+          <SidebarLink
+            icon={<CalendarCheck size={20} />}
+            label="Appointments"
+            active={activeSection === "Appointments"}
+            onClick={() => setActiveSection("Appointments")}
+          />
+          <SidebarLink
+            icon={<Users size={20} />}
+            label="Patients"
+            active={activeSection === "Patients"}
+            onClick={() => setActiveSection("Patients")}
+          />
+          <SidebarLink
+            icon={<FileText size={20} />}
+            label="Reports"
+            active={activeSection === "Reports"}
+            onClick={() => setActiveSection("Reports")}
+          />
+          <SidebarLink
+            icon={<Settings size={20} />}
+            label="Settings"
+            active={activeSection === "Settings"}
+            onClick={() => setActiveSection("Settings")}
+          />
         </nav>
         <div className="px-4 py-4 border-t border-gray-200">
           <SidebarLink icon={<LogOut size={20} />} label="Logout" />
@@ -350,8 +458,12 @@ const AdminDashboard = () => {
         <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">{activeSection}</h2>
-              <p className="text-sm text-gray-600 mt-1">Welcome back, Dr. Admin</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                {activeSection}
+              </h2>
+              <p className="text-sm text-gray-600 mt-1">
+                Welcome back, Dr. Admin
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -371,6 +483,25 @@ const AdminDashboard = () => {
                   className="w-10 h-10 rounded-full border-2 border-gray-200"
                 />
               </div>
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-2 text-gray-700 md:hidden"
+              >
+                {/* Hamburger icon */}
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </button>
             </div>
           </div>
         </header>
@@ -379,21 +510,56 @@ const AdminDashboard = () => {
         <main className="flex-1 p-6 space-y-6 overflow-auto">
           {activeSection === "Dashboard" && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-              <SummaryCard title="Total Appointments" value={totalAppointments} icon={<Calendar className="w-6 h-6 text-blue-600" />} trend="+12%" trendUp={true} />
-              <SummaryCard title="Pending Requests" value={pendingCount} icon={<Clock className="w-6 h-6 text-amber-600" />} trend="+3" trendUp={false} />
-              <SummaryCard title="Approved" value={approvedCount} icon={<CheckCircle className="w-6 h-6 text-emerald-600" />} trend="+8%" trendUp={true} />
-              <SummaryCard title="Rescheduled" value={rescheduledCount} icon={<TrendingUp className="w-6 h-6 text-blue-600" />} trend="0" trendUp={true} />
-              <SummaryCard title="Declined" value={declinedCount} icon={<XCircle className="w-6 h-6 text-red-600" />} trend="-2%" trendUp={true} />
+              <SummaryCard
+                title="Total Appointments"
+                value={totalAppointments}
+                icon={<Calendar className="w-6 h-6 text-blue-600" />}
+                trend="+12%"
+                trendUp={true}
+              />
+              <SummaryCard
+                title="Pending Requests"
+                value={pendingCount}
+                icon={<Clock className="w-6 h-6 text-amber-600" />}
+                trend="+3"
+                trendUp={false}
+              />
+              <SummaryCard
+                title="Approved"
+                value={approvedCount}
+                icon={<CheckCircle className="w-6 h-6 text-emerald-600" />}
+                trend="+8%"
+                trendUp={true}
+              />
+              <SummaryCard
+                title="Rescheduled"
+                value={rescheduledCount}
+                icon={<TrendingUp className="w-6 h-6 text-blue-600" />}
+                trend="0"
+                trendUp={true}
+              />
+              <SummaryCard
+                title="Declined"
+                value={declinedCount}
+                icon={<XCircle className="w-6 h-6 text-red-600" />}
+                trend="-2%"
+                trendUp={true}
+              />
             </div>
           )}
 
           {activeSection === "Appointments" && (
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
               <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                <h3 className="text-lg font-semibold text-gray-900">Appointment Management</h3>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Appointment Management
+                </h3>
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <Search
+                      size={16}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    />
                     <input
                       type="text"
                       placeholder="Search appointments..."
@@ -422,44 +588,80 @@ const AdminDashboard = () => {
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Health Concern</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Patient
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Date & Time
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Health Concern
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Priority
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredAppointments.map((appt) => (
-                      <tr key={appt.id} className="hover:bg-gray-50 transition-colors">
+                      <tr
+                        key={appt.id}
+                        className="hover:bg-gray-50 transition-colors"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
                               <span className="text-indigo-600 font-medium text-sm">
-                                {appt.patientName.split(' ').map(n => n[0]).join('')}
+                                {appt.patientName
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </span>
                             </div>
                             <div className="ml-3">
-                              <div className="text-sm font-medium text-gray-900">{appt.patientName}</div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {appt.patientName}
+                              </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{appt.date}</div>
-                          <div className="text-sm text-gray-500">{appt.time}</div>
+                          <div className="text-sm text-gray-900">
+                            {appt.date}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {appt.time}
+                          </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-900">{appt.healthConcern}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className={`w-2 h-2 rounded-full mr-2 ${getPriorityColor(appt.priority)}`}></div>
-                            <span className="text-sm text-gray-600">{appt.priority}</span>
+                          <div className="text-sm text-gray-900">
+                            {appt.healthConcern}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(appt.status)}`}>
+                          <div className="flex items-center">
+                            <div
+                              className={`w-2 h-2 rounded-full mr-2 ${getPriorityColor(
+                                appt.priority
+                              )}`}
+                            ></div>
+                            <span className="text-sm text-gray-600">
+                              {appt.priority}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span
+                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(
+                              appt.status
+                            )}`}
+                          >
                             {appt.status}
                           </span>
                         </td>
@@ -468,19 +670,25 @@ const AdminDashboard = () => {
                             {appt.status === "Pending" && (
                               <>
                                 <button
-                                  onClick={() => updateStatus(appt.id, "Approved")}
+                                  onClick={() =>
+                                    updateStatus(appt.id, "Approved")
+                                  }
                                   className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 transition-colors"
                                 >
                                   Approve
                                 </button>
                                 <button
-                                  onClick={() => updateStatus(appt.id, "Rescheduled")}
+                                  onClick={() =>
+                                    updateStatus(appt.id, "Rescheduled")
+                                  }
                                   className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition-colors"
                                 >
                                   Reschedule
                                 </button>
                                 <button
-                                  onClick={() => updateStatus(appt.id, "Declined")}
+                                  onClick={() =>
+                                    updateStatus(appt.id, "Declined")
+                                  }
                                   className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-500 transition-colors"
                                 >
                                   Decline
@@ -499,7 +707,9 @@ const AdminDashboard = () => {
               </div>
               {filteredAppointments.length === 0 && (
                 <div className="text-center py-12">
-                  <div className="text-gray-500 text-sm">No appointments found matching your criteria.</div>
+                  <div className="text-gray-500 text-sm">
+                    No appointments found matching your criteria.
+                  </div>
                 </div>
               )}
             </div>
@@ -509,18 +719,41 @@ const AdminDashboard = () => {
             <div className="space-y-6">
               {/* Patient Stats */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <SummaryCard title="Total Patients" value={totalPatients} icon={<Users className="w-6 h-6 text-blue-600" />} trend="+5%" trendUp={true} />
-                <SummaryCard title="Active Patients" value={activePatients} icon={<CheckCircle className="w-6 h-6 text-emerald-600" />} trend="+3%" trendUp={true} />
-                <SummaryCard title="Inactive Patients" value={inactivePatients} icon={<XCircle className="w-6 h-6 text-red-600" />} trend="-1%" trendUp={true} />
+                <SummaryCard
+                  title="Total Patients"
+                  value={totalPatients}
+                  icon={<Users className="w-6 h-6 text-blue-600" />}
+                  trend="+5%"
+                  trendUp={true}
+                />
+                <SummaryCard
+                  title="Active Patients"
+                  value={activePatients}
+                  icon={<CheckCircle className="w-6 h-6 text-emerald-600" />}
+                  trend="+3%"
+                  trendUp={true}
+                />
+                <SummaryCard
+                  title="Inactive Patients"
+                  value={inactivePatients}
+                  icon={<XCircle className="w-6 h-6 text-red-600" />}
+                  trend="-1%"
+                  trendUp={true}
+                />
               </div>
 
               {/* Patients Table */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                 <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                  <h3 className="text-lg font-semibold text-gray-900">Patient Management</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Patient Management
+                  </h3>
                   <div className="flex items-center space-x-3">
                     <div className="relative">
-                      <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <Search
+                        size={16}
+                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      />
                       <input
                         type="text"
                         placeholder="Search patients..."
@@ -551,27 +784,49 @@ const AdminDashboard = () => {
                   <table className="w-full">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Info</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medical Info</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Visit</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Patient
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Contact Info
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Medical Info
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Last Visit
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredPatients.map((patient) => (
-                        <tr key={patient.id} className="hover:bg-gray-50 transition-colors">
+                        <tr
+                          key={patient.id}
+                          className="hover:bg-gray-50 transition-colors"
+                        >
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
                                 <span className="text-indigo-600 font-medium">
-                                  {patient.name.split(' ').map(n => n[0]).join('')}
+                                  {patient.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
                                 </span>
                               </div>
                               <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">{patient.name}</div>
-                                <div className="text-sm text-gray-500">{patient.age} years old • {patient.gender}</div>
+                                <div className="text-sm font-medium text-gray-900">
+                                  {patient.name}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  {patient.age} years old • {patient.gender}
+                                </div>
                               </div>
                             </div>
                           </td>
@@ -586,15 +841,27 @@ const AdminDashboard = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="text-sm text-gray-900 mb-1">Blood Type: {patient.bloodType}</div>
-                            <div className="text-sm text-gray-500">Allergies: {patient.allergies}</div>
+                            <div className="text-sm text-gray-900 mb-1">
+                              Blood Type: {patient.bloodType}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              Allergies: {patient.allergies}
+                            </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{patient.lastVisit}</div>
-                            <div className="text-sm text-gray-500">{patient.totalAppointments} total visits</div>
+                            <div className="text-sm text-gray-900">
+                              {patient.lastVisit}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {patient.totalAppointments} total visits
+                            </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(patient.status)}`}>
+                            <span
+                              className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(
+                                patient.status
+                              )}`}
+                            >
                               {patient.status}
                             </span>
                           </td>
@@ -628,7 +895,9 @@ const AdminDashboard = () => {
                 </div>
                 {filteredPatients.length === 0 && (
                   <div className="text-center py-12">
-                    <div className="text-gray-500 text-sm">No patients found matching your criteria.</div>
+                    <div className="text-gray-500 text-sm">
+                      No patients found matching your criteria.
+                    </div>
                   </div>
                 )}
               </div>
@@ -640,7 +909,9 @@ const AdminDashboard = () => {
               {/* Report Filter Bar */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                  <h3 className="text-lg font-semibold text-gray-900">Healthcare Reports & Analytics</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Healthcare Reports & Analytics
+                  </h3>
                   <div className="flex items-center space-x-4">
                     <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                       <option>Last 7 days</option>
@@ -659,35 +930,35 @@ const AdminDashboard = () => {
 
               {/* Key Metrics Overview */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <MetricCard 
-                  title="Total Consultations" 
-                  value="1,247" 
-                  icon={<Users className="w-6 h-6 text-indigo-600" />} 
-                  trend="+12%" 
+                <MetricCard
+                  title="Total Consultations"
+                  value="1,247"
+                  icon={<Users className="w-6 h-6 text-indigo-600" />}
+                  trend="+12%"
                   trendUp={true}
                   description="This month"
                 />
-                <MetricCard 
-                  title="Patient Satisfaction" 
-                  value="4.8/5" 
-                  icon={<CheckCircle className="w-6 h-6 text-blue-600" />} 
-                  trend="+0.2" 
+                <MetricCard
+                  title="Patient Satisfaction"
+                  value="4.8/5"
+                  icon={<CheckCircle className="w-6 h-6 text-blue-600" />}
+                  trend="+0.2"
                   trendUp={true}
                   description="Average rating"
                 />
-                <MetricCard 
-                  title="Appointment Rate" 
-                  value="87%" 
-                  icon={<Calendar className="w-6 h-6 text-purple-600" />} 
-                  trend="+5%" 
+                <MetricCard
+                  title="Appointment Rate"
+                  value="87%"
+                  icon={<Calendar className="w-6 h-6 text-purple-600" />}
+                  trend="+5%"
                   trendUp={true}
                   description="Show-up rate"
                 />
-                <MetricCard 
-                  title="Avg Wait Time" 
-                  value="12 min" 
-                  icon={<Clock className="w-6 h-6 text-amber-600" />} 
-                  trend="-2 min" 
+                <MetricCard
+                  title="Avg Wait Time"
+                  value="12 min"
+                  icon={<Clock className="w-6 h-6 text-amber-600" />}
+                  trend="-2 min"
                   trendUp={true}
                   description="Patient wait time"
                 />
@@ -698,7 +969,9 @@ const AdminDashboard = () => {
                 {/* Appointments Trend Chart */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900">Appointments Trend</h4>
+                    <h4 className="text-lg font-semibold text-gray-900">
+                      Appointments Trend
+                    </h4>
                     <div className="flex space-x-2">
                       <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
                         <div className="w-2 h-2 bg-blue-600 rounded-full mr-1"></div>
@@ -717,12 +990,30 @@ const AdminDashboard = () => {
 
                 {/* Patient Demographics */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-6">Patient Demographics</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-6">
+                    Patient Demographics
+                  </h4>
                   <div className="space-y-4">
-                    <DemographicBar label="Age 18-30" percentage={35} color="bg-blue-500" />
-                    <DemographicBar label="Age 31-50" percentage={42} color="bg-emerald-500" />
-                    <DemographicBar label="Age 51-70" percentage={18} color="bg-amber-500" />
-                    <DemographicBar label="Age 70+" percentage={5} color="bg-red-500" />
+                    <DemographicBar
+                      label="Age 18-30"
+                      percentage={35}
+                      color="bg-blue-500"
+                    />
+                    <DemographicBar
+                      label="Age 31-50"
+                      percentage={42}
+                      color="bg-emerald-500"
+                    />
+                    <DemographicBar
+                      label="Age 51-70"
+                      percentage={18}
+                      color="bg-amber-500"
+                    />
+                    <DemographicBar
+                      label="Age 70+"
+                      percentage={5}
+                      color="bg-red-500"
+                    />
                   </div>
                   <div className="mt-6 grid grid-cols-2 gap-4">
                     <div className="text-center">
@@ -741,94 +1032,154 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Patient Flow & Capacity */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-6">Monthly Patient Flow</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-6">
+                    Monthly Patient Flow
+                  </h4>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-600">January</span>
-                      <span className="text-sm font-semibold text-gray-900">2,450 patients</span>
+                      <span className="text-sm font-medium text-gray-600">
+                        January
+                      </span>
+                      <span className="text-sm font-semibold text-gray-900">
+                        2,450 patients
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-indigo-600 h-2 rounded-full" style={{width: '85%'}}></div>
+                      <div
+                        className="bg-indigo-600 h-2 rounded-full"
+                        style={{ width: "85%" }}
+                      ></div>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-600">February</span>
-                      <span className="text-sm font-semibold text-gray-900">2,180 patients</span>
+                      <span className="text-sm font-medium text-gray-600">
+                        February
+                      </span>
+                      <span className="text-sm font-semibold text-gray-900">
+                        2,180 patients
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-indigo-600 h-2 rounded-full" style={{width: '76%'}}></div>
+                      <div
+                        className="bg-indigo-600 h-2 rounded-full"
+                        style={{ width: "76%" }}
+                      ></div>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-600">March</span>
-                      <span className="text-sm font-semibold text-gray-900">2,680 patients</span>
+                      <span className="text-sm font-medium text-gray-600">
+                        March
+                      </span>
+                      <span className="text-sm font-semibold text-gray-900">
+                        2,680 patients
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-indigo-600 h-2 rounded-full" style={{width: '92%'}}></div>
+                      <div
+                        className="bg-indigo-600 h-2 rounded-full"
+                        style={{ width: "92%" }}
+                      ></div>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-600">April</span>
-                      <span className="text-sm font-semibold text-gray-900">2,890 patients</span>
+                      <span className="text-sm font-medium text-gray-600">
+                        April
+                      </span>
+                      <span className="text-sm font-semibold text-gray-900">
+                        2,890 patients
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-emerald-600 h-2 rounded-full" style={{width: '100%'}}></div>
+                      <div
+                        className="bg-emerald-600 h-2 rounded-full"
+                        style={{ width: "100%" }}
+                      ></div>
                     </div>
                   </div>
-                  
+
                   <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                     <div className="flex items-center">
                       <TrendingUp className="w-5 h-5 text-blue-600 mr-2" />
-                      <span className="text-sm font-medium text-blue-800">Patient visits increased by 18% this month</span>
+                      <span className="text-sm font-medium text-blue-800">
+                        Patient visits increased by 18% this month
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Common Health Conditions */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-6">Common Health Conditions</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-6">
+                    Common Health Conditions
+                  </h4>
                   <div className="space-y-4">
-                    <ConditionItem condition="Hypertension" count={124} percentage={28} />
-                    <ConditionItem condition="Diabetes" count={98} percentage={22} />
-                    <ConditionItem condition="Respiratory Issues" count={87} percentage={20} />
-                    <ConditionItem condition="Heart Disease" count={65} percentage={15} />
-                    <ConditionItem condition="Mental Health" count={43} percentage={10} />
-                    <ConditionItem condition="Others" count={22} percentage={5} />
+                    <ConditionItem
+                      condition="Hypertension"
+                      count={124}
+                      percentage={28}
+                    />
+                    <ConditionItem
+                      condition="Diabetes"
+                      count={98}
+                      percentage={22}
+                    />
+                    <ConditionItem
+                      condition="Respiratory Issues"
+                      count={87}
+                      percentage={20}
+                    />
+                    <ConditionItem
+                      condition="Heart Disease"
+                      count={65}
+                      percentage={15}
+                    />
+                    <ConditionItem
+                      condition="Mental Health"
+                      count={43}
+                      percentage={10}
+                    />
+                    <ConditionItem
+                      condition="Others"
+                      count={22}
+                      percentage={5}
+                    />
                   </div>
                 </div>
               </div>
 
-                              {/* Doctor Performance & Recent Activity */}
+              {/* Doctor Performance & Recent Activity */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Doctor Performance */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-6">Doctor Performance</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-6">
+                    Doctor Performance
+                  </h4>
                   <div className="space-y-4">
-                    <DoctorPerformance 
-                      name="Dr. Sarah Johnson" 
-                      appointments={156} 
-                      rating={4.9} 
+                    <DoctorPerformance
+                      name="Dr. Sarah Johnson"
+                      appointments={156}
+                      rating={4.9}
                       patients="98 patients"
                       avatar="SJ"
                     />
-                    <DoctorPerformance 
-                      name="Dr. Michael Chen" 
-                      appointments={142} 
-                      rating={4.8} 
+                    <DoctorPerformance
+                      name="Dr. Michael Chen"
+                      appointments={142}
+                      rating={4.8}
                       patients="89 patients"
                       avatar="MC"
                     />
-                    <DoctorPerformance 
-                      name="Dr. Emily Davis" 
-                      appointments={138} 
-                      rating={4.7} 
+                    <DoctorPerformance
+                      name="Dr. Emily Davis"
+                      appointments={138}
+                      rating={4.7}
                       patients="85 patients"
                       avatar="ED"
                     />
-                    <DoctorPerformance 
-                      name="Dr. Robert Wilson" 
-                      appointments={129} 
-                      rating={4.8} 
+                    <DoctorPerformance
+                      name="Dr. Robert Wilson"
+                      appointments={129}
+                      rating={4.8}
                       patients="76 patients"
                       avatar="RW"
                     />
@@ -837,33 +1188,35 @@ const AdminDashboard = () => {
 
                 {/* Recent Activity Log */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-6">
+                    Recent Activity
+                  </h4>
                   <div className="space-y-4">
-                    <ActivityItem 
+                    <ActivityItem
                       action="New patient registered"
                       patient="John Smith"
                       time="2 hours ago"
                       type="success"
                     />
-                    <ActivityItem 
+                    <ActivityItem
                       action="Appointment completed"
                       patient="Sarah Wilson"
                       time="4 hours ago"
                       type="info"
                     />
-                    <ActivityItem 
+                    <ActivityItem
                       action="Payment received"
                       patient="Michael Brown"
                       time="6 hours ago"
                       type="success"
                     />
-                    <ActivityItem 
+                    <ActivityItem
                       action="Appointment cancelled"
                       patient="Emily Johnson"
                       time="8 hours ago"
                       type="warning"
                     />
-                    <ActivityItem 
+                    <ActivityItem
                       action="Medical report generated"
                       patient="Robert Davis"
                       time="1 day ago"
@@ -942,7 +1295,9 @@ const AdminDashboard = () => {
                   {activeSettingsTab === "general" && (
                     <div className="space-y-6">
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Clinic Information</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                          Clinic Information
+                        </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -978,11 +1333,26 @@ const AdminDashboard = () => {
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Operating Hours</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                          Operating Hours
+                        </h3>
                         <div className="space-y-4">
-                          {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                            <div key={day} className="flex items-center space-x-4">
-                              <div className="w-24 text-sm font-medium text-gray-700">{day}</div>
+                          {[
+                            "Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
+                            "Saturday",
+                            "Sunday",
+                          ].map((day) => (
+                            <div
+                              key={day}
+                              className="flex items-center space-x-4"
+                            >
+                              <div className="w-24 text-sm font-medium text-gray-700">
+                                {day}
+                              </div>
                               <input
                                 type="time"
                                 defaultValue="09:00"
@@ -991,7 +1361,13 @@ const AdminDashboard = () => {
                               <span className="text-gray-500">to</span>
                               <input
                                 type="time"
-                                defaultValue={day === "Saturday" ? "14:00" : day === "Sunday" ? "12:00" : "17:00"}
+                                defaultValue={
+                                  day === "Saturday"
+                                    ? "14:00"
+                                    : day === "Sunday"
+                                    ? "12:00"
+                                    : "17:00"
+                                }
                                 className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                               />
                               <label className="flex items-center">
@@ -1000,7 +1376,9 @@ const AdminDashboard = () => {
                                   defaultChecked={day !== "Sunday"}
                                   className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
-                                <span className="ml-2 text-sm text-gray-700">Open</span>
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Open
+                                </span>
                               </label>
                             </div>
                           ))}
@@ -1019,7 +1397,9 @@ const AdminDashboard = () => {
                   {activeSettingsTab === "users" && (
                     <div className="space-y-6">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-semibold text-gray-900">User Management</h3>
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          User Management
+                        </h3>
                         <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 transition-colors flex items-center">
                           <UserPlus size={16} className="mr-2" />
                           Add User
@@ -1030,11 +1410,21 @@ const AdminDashboard = () => {
                         <table className="w-full">
                           <thead className="bg-gray-100">
                             <tr>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                User
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Role
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Last Login
+                              </th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                              </th>
                             </tr>
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
@@ -1075,24 +1465,41 @@ const AdminDashboard = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-md font-semibold text-gray-900 mb-3">Role Permissions</h4>
+                        <h4 className="text-md font-semibold text-gray-900 mb-3">
+                          Role Permissions
+                        </h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <RoleCard
                             title="Administrator"
                             description="Full system access and user management"
-                            permissions={["All Permissions", "User Management", "System Settings", "Reports Access"]}
+                            permissions={[
+                              "All Permissions",
+                              "User Management",
+                              "System Settings",
+                              "Reports Access",
+                            ]}
                             color="bg-red-100 text-red-800"
                           />
                           <RoleCard
                             title="Doctor"
                             description="Patient management and medical records"
-                            permissions={["Patient Records", "Appointments", "Medical Reports", "Prescriptions"]}
+                            permissions={[
+                              "Patient Records",
+                              "Appointments",
+                              "Medical Reports",
+                              "Prescriptions",
+                            ]}
                             color="bg-blue-100 text-blue-800"
                           />
                           <RoleCard
                             title="Nurse"
                             description="Patient care and appointment assistance"
-                            permissions={["Patient Info", "Appointments", "Basic Reports", "Schedule Management"]}
+                            permissions={[
+                              "Patient Info",
+                              "Appointments",
+                              "Basic Reports",
+                              "Schedule Management",
+                            ]}
                             color="bg-emerald-100 text-emerald-800"
                           />
                         </div>
@@ -1103,11 +1510,15 @@ const AdminDashboard = () => {
                   {/* Notifications */}
                   {activeSettingsTab === "notifications" && (
                     <div className="space-y-6">
-                      <h3 className="text-lg font-semibold text-gray-900">Notification Preferences</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Notification Preferences
+                      </h3>
 
                       <div className="space-y-4">
                         <div className="bg-gray-50 p-4 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-3">Email Notifications</h4>
+                          <h4 className="font-medium text-gray-900 mb-3">
+                            Email Notifications
+                          </h4>
                           <div className="space-y-3">
                             <NotificationToggle
                               title="New Appointment Requests"
@@ -1133,7 +1544,9 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="bg-gray-50 p-4 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-3">SMS Notifications</h4>
+                          <h4 className="font-medium text-gray-900 mb-3">
+                            SMS Notifications
+                          </h4>
                           <div className="space-y-3">
                             <NotificationToggle
                               title="Emergency Appointments"
@@ -1149,7 +1562,9 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="bg-gray-50 p-4 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-3">Push Notifications</h4>
+                          <h4 className="font-medium text-gray-900 mb-3">
+                            Push Notifications
+                          </h4>
                           <div className="space-y-3">
                             <NotificationToggle
                               title="Real-time Updates"
@@ -1176,41 +1591,70 @@ const AdminDashboard = () => {
                   {/* Security Settings */}
                   {activeSettingsTab === "security" && (
                     <div className="space-y-6">
-                      <h3 className="text-lg font-semibold text-gray-900">Security Settings</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Security Settings
+                      </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
-                          <h4 className="font-medium text-gray-900">Password Policy</h4>
+                          <h4 className="font-medium text-gray-900">
+                            Password Policy
+                          </h4>
                           <div className="space-y-3">
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" defaultChecked className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Require 8+ characters</span>
+                                <input
+                                  type="checkbox"
+                                  defaultChecked
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Require 8+ characters
+                                </span>
                               </label>
                             </div>
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" defaultChecked className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Require uppercase letters</span>
+                                <input
+                                  type="checkbox"
+                                  defaultChecked
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Require uppercase letters
+                                </span>
                               </label>
                             </div>
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" defaultChecked className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Require numbers</span>
+                                <input
+                                  type="checkbox"
+                                  defaultChecked
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Require numbers
+                                </span>
                               </label>
                             </div>
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Require special characters</span>
+                                <input
+                                  type="checkbox"
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Require special characters
+                                </span>
                               </label>
                             </div>
                           </div>
                         </div>
 
                         <div className="space-y-4">
-                          <h4 className="font-medium text-gray-900">Session Security</h4>
+                          <h4 className="font-medium text-gray-900">
+                            Session Security
+                          </h4>
                           <div className="space-y-3">
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -1225,14 +1669,25 @@ const AdminDashboard = () => {
                             </div>
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" defaultChecked className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Enable two-factor authentication</span>
+                                <input
+                                  type="checkbox"
+                                  defaultChecked
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Enable two-factor authentication
+                                </span>
                               </label>
                             </div>
                             <div>
                               <label className="flex items-center">
-                                <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                <span className="ml-2 text-sm text-gray-700">Log all user activities</span>
+                                <input
+                                  type="checkbox"
+                                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">
+                                  Log all user activities
+                                </span>
                               </label>
                             </div>
                           </div>
@@ -1240,24 +1695,44 @@ const AdminDashboard = () => {
                       </div>
 
                       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <h4 className="font-medium text-red-800 mb-2">Data Privacy & HIPAA Compliance</h4>
+                        <h4 className="font-medium text-red-800 mb-2">
+                          Data Privacy & HIPAA Compliance
+                        </h4>
                         <div className="space-y-2">
                           <div>
                             <label className="flex items-center">
-                              <input type="checkbox" defaultChecked className="rounded border-red-300 text-red-600 focus:ring-red-500" />
-                              <span className="ml-2 text-sm text-red-700">Enable audit logging for patient data access</span>
+                              <input
+                                type="checkbox"
+                                defaultChecked
+                                className="rounded border-red-300 text-red-600 focus:ring-red-500"
+                              />
+                              <span className="ml-2 text-sm text-red-700">
+                                Enable audit logging for patient data access
+                              </span>
                             </label>
                           </div>
                           <div>
                             <label className="flex items-center">
-                              <input type="checkbox" defaultChecked className="rounded border-red-300 text-red-600 focus:ring-red-500" />
-                              <span className="ml-2 text-sm text-red-700">Encrypt all patient data at rest</span>
+                              <input
+                                type="checkbox"
+                                defaultChecked
+                                className="rounded border-red-300 text-red-600 focus:ring-red-500"
+                              />
+                              <span className="ml-2 text-sm text-red-700">
+                                Encrypt all patient data at rest
+                              </span>
                             </label>
                           </div>
                           <div>
                             <label className="flex items-center">
-                              <input type="checkbox" defaultChecked className="rounded border-red-300 text-red-600 focus:ring-red-500" />
-                              <span className="ml-2 text-sm text-red-700">Automatic data backup every 6 hours</span>
+                              <input
+                                type="checkbox"
+                                defaultChecked
+                                className="rounded border-red-300 text-red-600 focus:ring-red-500"
+                              />
+                              <span className="ml-2 text-sm text-red-700">
+                                Automatic data backup every 6 hours
+                              </span>
                             </label>
                           </div>
                         </div>
@@ -1274,11 +1749,15 @@ const AdminDashboard = () => {
                   {/* System Settings */}
                   {activeSettingsTab === "system" && (
                     <div className="space-y-6">
-                      <h3 className="text-lg font-semibold text-gray-900">System Configuration</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        System Configuration
+                      </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
-                          <h4 className="font-medium text-gray-900">Appearance</h4>
+                          <h4 className="font-medium text-gray-900">
+                            Appearance
+                          </h4>
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Theme
@@ -1303,7 +1782,9 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="space-y-4">
-                          <h4 className="font-medium text-gray-900">Regional Settings</h4>
+                          <h4 className="font-medium text-gray-900">
+                            Regional Settings
+                          </h4>
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Timezone
@@ -1328,18 +1809,28 @@ const AdminDashboard = () => {
                       </div>
 
                       <div className="space-y-4">
-                        <h4 className="font-medium text-gray-900">System Maintenance</h4>
+                        <h4 className="font-medium text-gray-900">
+                          System Maintenance
+                        </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <h5 className="font-medium text-blue-800 mb-2">Database Backup</h5>
-                            <p className="text-sm text-blue-700 mb-3">Last backup: 2 hours ago</p>
+                            <h5 className="font-medium text-blue-800 mb-2">
+                              Database Backup
+                            </h5>
+                            <p className="text-sm text-blue-700 mb-3">
+                              Last backup: 2 hours ago
+                            </p>
                             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
                               Run Backup Now
                             </button>
                           </div>
                           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                            <h5 className="font-medium text-green-800 mb-2">System Health</h5>
-                            <p className="text-sm text-green-700 mb-3">All systems operational</p>
+                            <h5 className="font-medium text-green-800 mb-2">
+                              System Health
+                            </h5>
+                            <p className="text-sm text-green-700 mb-3">
+                              All systems operational
+                            </p>
                             <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
                               View Details
                             </button>
@@ -1369,12 +1860,19 @@ const AdminDashboard = () => {
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
                   <span className="text-indigo-600 font-medium text-lg">
-                    {selectedPatient.name.split(' ').map(n => n[0]).join('')}
+                    {selectedPatient.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{selectedPatient.name}</h3>
-                  <p className="text-sm text-gray-500">Patient ID: #{selectedPatient.id}</p>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {selectedPatient.name}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Patient ID: #{selectedPatient.id}
+                  </p>
                 </div>
               </div>
               <button
@@ -1384,28 +1882,44 @@ const AdminDashboard = () => {
                 <XCircle size={24} className="text-gray-400" />
               </button>
             </div>
-            
+
             <div className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Personal Information */}
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Personal Information</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                    Personal Information
+                  </h4>
                   <div className="space-y-3">
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Full Name</label>
+                      <label className="text-sm font-medium text-gray-600">
+                        Full Name
+                      </label>
                       <p className="text-gray-900">{selectedPatient.name}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Age</label>
-                      <p className="text-gray-900">{selectedPatient.age} years old</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Age
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.age} years old
+                      </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Gender</label>
+                      <label className="text-sm font-medium text-gray-600">
+                        Gender
+                      </label>
                       <p className="text-gray-900">{selectedPatient.gender}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Status</label>
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(selectedPatient.status)}`}>
+                      <label className="text-sm font-medium text-gray-600">
+                        Status
+                      </label>
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(
+                          selectedPatient.status
+                        )}`}
+                      >
                         {selectedPatient.status}
                       </span>
                     </div>
@@ -1414,62 +1928,94 @@ const AdminDashboard = () => {
 
                 {/* Contact Information */}
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Contact Information</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                    Contact Information
+                  </h4>
                   <div className="space-y-3">
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Phone Number</label>
+                      <label className="text-sm font-medium text-gray-600">
+                        Phone Number
+                      </label>
                       <p className="text-gray-900 flex items-center">
                         <Phone size={16} className="mr-2 text-gray-400" />
                         {selectedPatient.phone}
                       </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Email Address</label>
+                      <label className="text-sm font-medium text-gray-600">
+                        Email Address
+                      </label>
                       <p className="text-gray-900 flex items-center">
                         <Mail size={16} className="mr-2 text-gray-400" />
                         {selectedPatient.email}
                       </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Address</label>
+                      <label className="text-sm font-medium text-gray-600">
+                        Address
+                      </label>
                       <p className="text-gray-900 flex items-center">
                         <MapPin size={16} className="mr-2 text-gray-400" />
                         {selectedPatient.address}
                       </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Emergency Contact</label>
-                      <p className="text-gray-900">{selectedPatient.emergencyContact}</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Emergency Contact
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.emergencyContact}
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Medical Information */}
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Medical Information</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                    Medical Information
+                  </h4>
                   <div className="space-y-3">
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Blood Type</label>
-                      <p className="text-gray-900">{selectedPatient.bloodType}</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Blood Type
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.bloodType}
+                      </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Allergies</label>
-                      <p className="text-gray-900">{selectedPatient.allergies}</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Allergies
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.allergies}
+                      </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Last Visit</label>
-                      <p className="text-gray-900">{selectedPatient.lastVisit}</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Last Visit
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.lastVisit}
+                      </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Total Appointments</label>
-                      <p className="text-gray-900">{selectedPatient.totalAppointments}</p>
+                      <label className="text-sm font-medium text-gray-600">
+                        Total Appointments
+                      </label>
+                      <p className="text-gray-900">
+                        {selectedPatient.totalAppointments}
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Quick Actions */}
                 <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Quick Actions</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                    Quick Actions
+                  </h4>
                   <div className="space-y-3">
                     <button className="w-full flex items-center justify-center px-4 py-3 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors">
                       <Calendar size={16} className="mr-2" />
@@ -1498,8 +2044,8 @@ const SidebarLink = ({ icon, label, active = false, onClick }) => (
   <button
     onClick={onClick}
     className={`w-full text-left flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors ${
-      active 
-        ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-600" 
+      active
+        ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-600"
         : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
     }`}
   >
@@ -1515,14 +2061,16 @@ const SummaryCard = ({ title, value, icon, trend, trendUp }) => (
         <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
         <p className="text-2xl font-bold text-gray-900">{value}</p>
         {trend && (
-          <p className={`text-sm mt-1 ${trendUp ? 'text-emerald-600' : 'text-red-600'}`}>
-            {trendUp ? '↗' : '↘'} {trend} from last month
+          <p
+            className={`text-sm mt-1 ${
+              trendUp ? "text-emerald-600" : "text-red-600"
+            }`}
+          >
+            {trendUp ? "↗" : "↘"} {trend} from last month
           </p>
         )}
       </div>
-      <div className="p-3 bg-gray-50 rounded-lg">
-        {icon}
-      </div>
+      <div className="p-3 bg-gray-50 rounded-lg">{icon}</div>
     </div>
   </div>
 );
@@ -1530,13 +2078,15 @@ const SummaryCard = ({ title, value, icon, trend, trendUp }) => (
 const MetricCard = ({ title, value, icon, trend, trendUp, description }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
     <div className="flex items-center justify-between mb-4">
-      <div className="p-2 bg-gray-50 rounded-lg">
-        {icon}
-      </div>
+      <div className="p-2 bg-gray-50 rounded-lg">{icon}</div>
       {trend && (
-        <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-          trendUp ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'
-        }`}>
+        <span
+          className={`text-xs font-medium px-2 py-1 rounded-full ${
+            trendUp
+              ? "bg-emerald-100 text-emerald-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
           {trend}
         </span>
       )}
@@ -1551,12 +2101,19 @@ const MetricCard = ({ title, value, icon, trend, trendUp, description }) => (
 
 const DemographicBar = ({ label, percentage, color }) => (
   <div className="flex items-center justify-between">
-    <span className="text-sm font-medium text-gray-700 min-w-0 flex-1">{label}</span>
+    <span className="text-sm font-medium text-gray-700 min-w-0 flex-1">
+      {label}
+    </span>
     <div className="flex items-center ml-4">
       <div className="w-24 bg-gray-200 rounded-full h-2 mr-3">
-        <div className={`h-2 rounded-full ${color}`} style={{width: `${percentage}%`}}></div>
+        <div
+          className={`h-2 rounded-full ${color}`}
+          style={{ width: `${percentage}%` }}
+        ></div>
       </div>
-      <span className="text-sm font-semibold text-gray-900 min-w-0">{percentage}%</span>
+      <span className="text-sm font-semibold text-gray-900 min-w-0">
+        {percentage}%
+      </span>
     </div>
   </div>
 );
@@ -1574,7 +2131,13 @@ const ConditionItem = ({ condition, count, percentage }) => (
   </div>
 );
 
-const DoctorPerformance = ({ name, appointments, rating, patients, avatar }) => (
+const DoctorPerformance = ({
+  name,
+  appointments,
+  rating,
+  patients,
+  avatar,
+}) => (
   <div className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
     <div className="flex items-center">
       <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
@@ -1587,10 +2150,19 @@ const DoctorPerformance = ({ name, appointments, rating, patients, avatar }) => 
     </div>
     <div className="text-right">
       <div className="flex items-center mb-1">
-        <span className="text-sm font-semibold text-gray-900 mr-1">{rating}</span>
+        <span className="text-sm font-semibold text-gray-900 mr-1">
+          {rating}
+        </span>
         <div className="flex">
           {[...Array(5)].map((_, i) => (
-            <span key={i} className={`text-xs ${i < Math.floor(rating) ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
+            <span
+              key={i}
+              className={`text-xs ${
+                i < Math.floor(rating) ? "text-yellow-400" : "text-gray-300"
+              }`}
+            >
+              ★
+            </span>
           ))}
         </div>
       </div>
@@ -1601,21 +2173,31 @@ const DoctorPerformance = ({ name, appointments, rating, patients, avatar }) => 
 
 const ActivityItem = ({ action, patient, time, type }) => {
   const getTypeColor = () => {
-    switch(type) {
-      case 'success': return 'bg-emerald-100 text-emerald-800';
-      case 'warning': return 'bg-amber-100 text-amber-800';
-      case 'info': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+    switch (type) {
+      case "success":
+        return "bg-emerald-100 text-emerald-800";
+      case "warning":
+        return "bg-amber-100 text-amber-800";
+      case "info":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   return (
     <div className="flex items-start space-x-3 py-2">
-      <div className={`w-2 h-2 rounded-full mt-2 ${
-        type === 'success' ? 'bg-emerald-500' : 
-        type === 'warning' ? 'bg-amber-500' : 
-        type === 'info' ? 'bg-blue-500' : 'bg-gray-500'
-      }`}></div>
+      <div
+        className={`w-2 h-2 rounded-full mt-2 ${
+          type === "success"
+            ? "bg-emerald-500"
+            : type === "warning"
+            ? "bg-amber-500"
+            : type === "info"
+            ? "bg-blue-500"
+            : "bg-gray-500"
+        }`}
+      ></div>
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-900">
           <span className="font-medium">{action}</span>
@@ -1629,30 +2211,30 @@ const ActivityItem = ({ action, patient, time, type }) => {
 
 const AppointmentChart = () => {
   const data = [
-    { day: 'Mon', scheduled: 45, completed: 42 },
-    { day: 'Tue', scheduled: 52, completed: 48 },
-    { day: 'Wed', scheduled: 38, completed: 35 },
-    { day: 'Thu', scheduled: 61, completed: 58 },
-    { day: 'Fri', scheduled: 55, completed: 51 },
-    { day: 'Sat', scheduled: 28, completed: 25 },
-    { day: 'Sun', scheduled: 15, completed: 14 },
+    { day: "Mon", scheduled: 45, completed: 42 },
+    { day: "Tue", scheduled: 52, completed: 48 },
+    { day: "Wed", scheduled: 38, completed: 35 },
+    { day: "Thu", scheduled: 61, completed: 58 },
+    { day: "Fri", scheduled: 55, completed: 51 },
+    { day: "Sat", scheduled: 28, completed: 25 },
+    { day: "Sun", scheduled: 15, completed: 14 },
   ];
 
-  const maxValue = Math.max(...data.flatMap(d => [d.scheduled, d.completed]));
+  const maxValue = Math.max(...data.flatMap((d) => [d.scheduled, d.completed]));
 
   return (
     <div className="flex items-end justify-between h-full space-x-2">
       {data.map((item, index) => (
         <div key={index} className="flex flex-col items-center flex-1 h-full">
           <div className="flex-1 flex flex-col justify-end w-full space-y-1">
-            <div 
-              className="bg-blue-500 rounded-t-sm min-h-[4px]" 
-              style={{height: `${(item.scheduled / maxValue) * 80}%`}}
+            <div
+              className="bg-blue-500 rounded-t-sm min-h-[4px]"
+              style={{ height: `${(item.scheduled / maxValue) * 80}%` }}
               title={`Scheduled: ${item.scheduled}`}
             ></div>
-            <div 
-              className="bg-emerald-500 rounded-t-sm min-h-[4px]" 
-              style={{height: `${(item.completed / maxValue) * 80}%`}}
+            <div
+              className="bg-emerald-500 rounded-t-sm min-h-[4px]"
+              style={{ height: `${(item.completed / maxValue) * 80}%` }}
               title={`Completed: ${item.completed}`}
             ></div>
           </div>
